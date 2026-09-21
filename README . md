@@ -1,0 +1,54 @@
+# Project Sentinel
+
+## Overview
+
+Project Sentinel is an AI-assisted smart surveillance platform designed to add intelligent security and event analysis capabilities to CCTV systems.
+
+## Goal
+
+Build a practical, low-cost surveillance intelligence system that can analyze camera footage, detect important events, record evidence, and provide useful information to a business owner.
+
+## Core Features
+
+- Person and vehicle detection
+- Motion and event detection
+- Camera identification
+- Event timestamps
+- Evidence snapshots
+- Event history
+- Configurable detection zones
+- Local/offline-first processing
+- Dashboard and analytics
+- Smart alerts
+
+## Hardware
+
+Current CCTV hardware:
+
+- 2 × Hikvision DS-2CE16C0T-IR
+- 2 × Hikvision DS-2CE16D1T-IT3
+- Tenda S108 network switch
+
+Additional hardware will be integrated as the project develops.
+
+## Project Structure
+
+```text
+docs/       Documentation
+src/        Source code
+tests/      Tests
+data/       Data and sample footage
+models/     AI models
+configs/    Configuration files
+
+
+## Development Target
+ 
+Project Sentinel v1.0 target date:
+ 
+**29 November 2026**
+ 
+## Status
+ 
+🚧 Day 1 — Development environment and project foundation.
+ 
