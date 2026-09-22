@@ -1,4 +1,22 @@
 import cv2
 
-print("Project Sentinel online.")
-print("OpenCV version:", cv2.__version__)
+camera = cv2.VideoCapture(0)
+
+if not camera.isOpened():
+    print("Could not open camera.")
+    exit()
+
+while True:
+    success, frame = camera.read()
+
+    if not success:
+        print("Could not read frame.")
+        break
+
+    cv2.imshow("Project Sentinel - Camera Test", frame)
+
+    if cv2.waitKey(1) & 0xFF == ord("q"):
+        break
+
+camera.release()
+cv2.destroyAllWindows()
