@@ -9,11 +9,20 @@ if not camera.isOpened():
 previous_frame = None
 frame_count = 0
 
-CHANGE_THRESHOLD = 20
+# Minimum percentage of changed pixels required
+REGION_MOTION_THRESHOLD = 3.0
+
+# Number of consecutive frames required to confirm an event
+START_CONFIRM_FRAMES = 2
+
+# Number of quiet frames required to end an event
 NO_CHANGE_FRAMES_TO_END = 30
 
 event_active = False
 no_change_frames = 0
+
+candidate_region = None
+start_confirm_frames = 0
 
 while True:
     success, frame = camera.read()
@@ -22,45 +31,170 @@ while True:
         print("Could not read frame.")
         break
 
-    frame_count = frame_count + 1
+    frame_count += 1
 
-    # Convert the current frame to grayscale
+    height, width = frame.shape[:2]
+
+    # Convert to grayscale
     gray_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
-    # We need a previous frame before we can compare anything
+    # Reduce small camera noise
+    gray_frame = cv2.GaussianBlur(
+        gray_frame,
+        (5, 5),
+        0
+    )
+
     if previous_frame is not None:
 
-        difference = cv2.absdiff(previous_frame, gray_frame)
+        # Compare current frame with previous frame
+        difference = cv2.absdiff(
+            previous_frame,
+            gray_frame
+        )
 
-        change_level = difference.mean()
+        # Ignore very small pixel changes
+        _, motion_mask = cv2.threshold(
+            difference,
+            25,
+            255,
+            cv2.THRESH_BINARY
+        )
 
-        if change_level >= CHANGE_THRESHOLD:
+        # Remove isolated noise
+        kernel = cv2.getStructuringElement(
+            cv2.MORPH_RECT,
+            (3, 3)
+        )
+
+        motion_mask = cv2.morphologyEx(
+            motion_mask,
+            cv2.MORPH_OPEN,
+            kernel
+        )
+
+        # Divide the frame into four regions
+        mid_x = width // 2
+        mid_y = height // 2
+
+        top_left = motion_mask[0:mid_y, 0:mid_x]
+        top_right = motion_mask[0:mid_y, mid_x:width]
+        bottom_left = motion_mask[mid_y:height, 0:mid_x]
+        bottom_right = motion_mask[mid_y:height, mid_x:width]
+
+        regions = {
+            "TOP LEFT": top_left,
+            "TOP RIGHT": top_right,
+            "BOTTOM LEFT": bottom_left,
+            "BOTTOM RIGHT": bottom_right
+        }
+
+        # Calculate motion percentage in each region
+        region_scores = {}
+
+        for name, region in regions.items():
+            changed_pixels = cv2.countNonZero(region)
+            total_pixels = region.size
+
+            motion_percentage = (
+                changed_pixels / total_pixels
+            ) * 100
+
+            region_scores[name] = motion_percentage
+
+        # Find the region with the most motion
+        active_region = max(
+            region_scores,
+            key=region_scores.get
+        )
+
+        motion_level = region_scores[active_region]
+
+        # -----------------------------
+        # EVENT START CONFIRMATION
+        # -----------------------------
+        if motion_level >= REGION_MOTION_THRESHOLD:
+
             no_change_frames = 0
 
-            # Start a new event only once
             if not event_active:
-                event_active = True
 
-                print(
-                    f"EVENT STARTED! Change level: {change_level:.2f}"
-                )
+                # Check whether the same region remains active
+                if candidate_region == active_region:
+                    start_confirm_frames += 1
+                else:
+                    candidate_region = active_region
+                    start_confirm_frames = 1
+
+                # Start event after consecutive confirmation frames
+                if start_confirm_frames >= START_CONFIRM_FRAMES:
+
+                    event_active = True
+                    start_confirm_frames = 0
+                    candidate_region = None
+
+                    print(
+                        f"EVENT STARTED! "
+                        f"Region: {active_region} | "
+                        f"Motion: {motion_level:.2f}%"
+                    )
 
         else:
-            # Count how long the scene stays below the threshold
-            if event_active:
-                no_change_frames = no_change_frames + 1
 
-                # End the event after a period of no significant change
+            # Reset start confirmation when motion disappears
+            candidate_region = None
+            start_confirm_frames = 0
+
+            # -----------------------------
+            # EVENT END DETECTION
+            # -----------------------------
+            if event_active:
+
+                no_change_frames += 1
+
                 if no_change_frames >= NO_CHANGE_FRAMES_TO_END:
+
                     event_active = False
                     no_change_frames = 0
 
                     print("EVENT ENDED")
 
-    # Store the current frame for the next comparison
+        # Draw vertical region boundary
+        cv2.line(
+            frame,
+            (mid_x, 0),
+            (mid_x, height),
+            (255, 255, 255),
+            1
+        )
+
+        # Draw horizontal region boundary
+        cv2.line(
+            frame,
+            (0, mid_y),
+            (width, mid_y),
+            (255, 255, 255),
+            1
+        )
+
+        # Display strongest region and motion level
+        cv2.putText(
+            frame,
+            f"{active_region}: {motion_level:.2f}%",
+            (10, 30),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (255, 255, 255),
+            2
+        )
+
+    # Save current frame for the next comparison
     previous_frame = gray_frame
 
-    cv2.imshow("Project Sentinel - Event Detection", frame)
+    cv2.imshow(
+        "Project Sentinel - Motion Location",
+        frame
+    )
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         break
