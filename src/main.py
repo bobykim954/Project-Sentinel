@@ -23,8 +23,12 @@ NO_CHANGE_FRAMES_TO_END = 30
 # Event history file
 EVENTS_FILE = "data/events.csv"
 
-# Create the data folder if it does not already exist
+# Folder for event evidence images
+EVIDENCE_DIR = "data/evidence"
+
+# Create required folders
 os.makedirs("data", exist_ok=True)
+os.makedirs(EVIDENCE_DIR, exist_ok=True)
 
 # Create the CSV file with headings the first time it is used
 if not os.path.exists(EVENTS_FILE):
@@ -50,6 +54,7 @@ event_id = None
 event_start_time = None
 event_region = None
 event_area = None
+event_evidence_path = None
 
 while True:
 
@@ -64,6 +69,9 @@ while True:
     # Find the centre of the camera image
     mid_x = width // 2
     mid_y = height // 2
+
+    # Keep a copy before drawing information on the frame
+    original_frame = frame.copy()
 
     # Convert current frame to grayscale
     gray_frame = cv2.cvtColor(
@@ -190,10 +198,36 @@ while True:
                         )
                     )
 
-                    # Save event information
+                    # Record event information
                     event_start_time = datetime.now()
                     event_region = active_region
                     event_area = largest_area
+
+                    # Create evidence filename
+                    evidence_filename = (
+                        event_id + ".jpg"
+                    )
+
+                    event_evidence_path = os.path.join(
+                        EVIDENCE_DIR,
+                        evidence_filename
+                    )
+
+                    # Save the original camera frame
+                    saved = cv2.imwrite(
+                        event_evidence_path,
+                        original_frame
+                    )
+
+                    if saved:
+                        print(
+                            f"Evidence saved: "
+                            f"{event_evidence_path}"
+                        )
+                    else:
+                        print(
+                            "Could not save event evidence."
+                        )
 
                     print(
                         f"EVENT STARTED! "
@@ -285,6 +319,7 @@ while True:
                     event_start_time = None
                     event_region = None
                     event_area = None
+                    event_evidence_path = None
 
     # Draw the four region boundaries
     cv2.line(
@@ -307,7 +342,7 @@ while True:
     previous_frame = gray_frame
 
     cv2.imshow(
-        "Project Sentinel - Event History",
+        "Project Sentinel - Event Evidence",
         frame
     )
 
