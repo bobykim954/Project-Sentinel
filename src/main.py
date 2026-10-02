@@ -11,6 +11,9 @@ if not camera.isOpened():
 
 previous_frame = None
 
+# Camera identity
+CAMERA_ID = "CAM-01"
+
 # Ignore very small motion areas
 MIN_CONTOUR_AREA = 800
 
@@ -26,23 +29,134 @@ EVENTS_FILE = "data/events.csv"
 # Folder for event evidence images
 EVIDENCE_DIR = "data/evidence"
 
+# Current event fields
+EVENT_FIELDS = [
+    "event_id",
+    "camera_id",
+    "start_time",
+    "end_time",
+    "region",
+    "motion_area",
+    "bbox_x",
+    "bbox_y",
+    "bbox_width",
+    "bbox_height",
+    "evidence_path",
+    "duration_seconds"
+]
+
 # Create required folders
 os.makedirs("data", exist_ok=True)
 os.makedirs(EVIDENCE_DIR, exist_ok=True)
 
-# Create the CSV file with headings the first time it is used
-if not os.path.exists(EVENTS_FILE):
-    with open(EVENTS_FILE, "w", newline="") as file:
-        writer = csv.writer(file)
 
-        writer.writerow([
-            "event_id",
-            "start_time",
-            "end_time",
-            "region",
-            "motion_area",
-            "duration_seconds"
-        ])
+def prepare_event_file():
+    """
+    Create the event file or upgrade the older Day 8/Day 9 format.
+    """
+
+    if not os.path.exists(EVENTS_FILE):
+
+        with open(
+            EVENTS_FILE,
+            "w",
+            newline=""
+        ) as file:
+
+            writer = csv.writer(file)
+            writer.writerow(EVENT_FIELDS)
+
+        return
+
+    # Read existing event history
+    with open(
+        EVENTS_FILE,
+        "r",
+        newline=""
+    ) as file:
+
+        reader = csv.DictReader(file)
+        old_fields = reader.fieldnames
+        rows = list(reader)
+
+    # No migration needed if already using the new format
+    if old_fields == EVENT_FIELDS:
+        return
+
+    print("Updating existing event history format...")
+
+    migrated_rows = []
+
+    for row in rows:
+
+        event_id = row.get("event_id", "")
+
+        evidence_file = os.path.join(
+            EVIDENCE_DIR,
+            event_id + ".jpg"
+        )
+
+        if os.path.exists(evidence_file):
+            evidence_path = (
+                "data/evidence/"
+                + event_id
+                + ".jpg"
+            )
+        else:
+            evidence_path = ""
+
+        migrated_rows.append({
+            "event_id": event_id,
+            "camera_id": CAMERA_ID,
+            "start_time": row.get(
+                "start_time",
+                ""
+            ),
+            "end_time": row.get(
+                "end_time",
+                ""
+            ),
+            "region": row.get(
+                "region",
+                ""
+            ),
+            "motion_area": row.get(
+                "motion_area",
+                ""
+            ),
+            "bbox_x": "",
+            "bbox_y": "",
+            "bbox_width": "",
+            "bbox_height": "",
+            "evidence_path": evidence_path,
+            "duration_seconds": row.get(
+                "duration_seconds",
+                ""
+            )
+        })
+
+    # Rewrite file using the new format
+    with open(
+        EVENTS_FILE,
+        "w",
+        newline=""
+    ) as file:
+
+        writer = csv.DictWriter(
+            file,
+            fieldnames=EVENT_FIELDS
+        )
+
+        writer.writeheader()
+        writer.writerows(migrated_rows)
+
+    print(
+        f"Event history updated. "
+        f"{len(migrated_rows)} existing events kept."
+    )
+
+
+prepare_event_file()
 
 event_active = False
 no_change_frames = 0
@@ -54,7 +168,9 @@ event_id = None
 event_start_time = None
 event_region = None
 event_area = None
+event_bbox = None
 event_evidence_path = None
+
 
 while True:
 
@@ -70,7 +186,7 @@ while True:
     mid_x = width // 2
     mid_y = height // 2
 
-    # Keep a copy before drawing information on the frame
+    # Keep a copy of the original camera frame
     original_frame = frame.copy()
 
     # Convert current frame to grayscale
@@ -148,6 +264,7 @@ while True:
             area = cv2.contourArea(contour)
 
             if area >= MIN_CONTOUR_AREA and area > largest_area:
+
                 largest_area = area
                 largest_box = cv2.boundingRect(contour)
 
@@ -172,7 +289,7 @@ while True:
             else:
                 active_region = "BOTTOM RIGHT"
 
-            # Motion exists, so reset the quiet-frame counter
+            # Motion exists, so reset quiet-frame counter
             no_change_frames = 0
 
             # Confirm motion before starting an event
@@ -190,7 +307,7 @@ while True:
                     start_confirm_frames = 0
                     candidate_region = None
 
-                    # Create a unique event ID
+                    # Create event ID
                     event_id = (
                         "EVT-"
                         + datetime.now().strftime(
@@ -202,8 +319,14 @@ while True:
                     event_start_time = datetime.now()
                     event_region = active_region
                     event_area = largest_area
+                    event_bbox = (
+                        x,
+                        y,
+                        box_width,
+                        box_height
+                    )
 
-                    # Create evidence filename
+                    # Create evidence path
                     evidence_filename = (
                         event_id + ".jpg"
                     )
@@ -213,7 +336,7 @@ while True:
                         evidence_filename
                     )
 
-                    # Save the original camera frame
+                    # Save original camera frame
                     saved = cv2.imwrite(
                         event_evidence_path,
                         original_frame
@@ -232,11 +355,12 @@ while True:
                     print(
                         f"EVENT STARTED! "
                         f"ID: {event_id} | "
+                        f"Camera: {CAMERA_ID} | "
                         f"Region: {event_region} | "
                         f"Area: {event_area:.0f}"
                     )
 
-            # Draw bounding box around detected motion
+            # Draw the motion box
             cv2.rectangle(
                 frame,
                 (x, y),
@@ -245,10 +369,10 @@ while True:
                 2
             )
 
-            # Display current motion information
+            # Display camera ID
             cv2.putText(
                 frame,
-                f"Motion: {active_region}",
+                f"Camera: {CAMERA_ID}",
                 (10, 30),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
@@ -256,10 +380,22 @@ while True:
                 2
             )
 
+            # Display region
+            cv2.putText(
+                frame,
+                f"Motion: {active_region}",
+                (10, 60),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.7,
+                (255, 255, 255),
+                2
+            )
+
+            # Display motion area
             cv2.putText(
                 frame,
                 f"Area: {largest_area:.0f}",
-                (10, 60),
+                (10, 90),
                 cv2.FONT_HERSHEY_SIMPLEX,
                 0.7,
                 (255, 255, 255),
@@ -284,27 +420,44 @@ while True:
                         event_end_time - event_start_time
                     ).total_seconds()
 
-                    # Save the completed event
+                    x, y, box_width, box_height = event_bbox
+
+                    # Save completed event
                     with open(
                         EVENTS_FILE,
                         "a",
                         newline=""
                     ) as file:
 
-                        writer = csv.writer(file)
+                        writer = csv.DictWriter(
+                            file,
+                            fieldnames=EVENT_FIELDS
+                        )
 
-                        writer.writerow([
-                            event_id,
-                            event_start_time.strftime(
-                                "%Y-%m-%d %H:%M:%S"
-                            ),
-                            event_end_time.strftime(
-                                "%Y-%m-%d %H:%M:%S"
-                            ),
-                            event_region,
-                            int(event_area),
-                            f"{duration:.2f}"
-                        ])
+                        writer.writerow({
+                            "event_id": event_id,
+                            "camera_id": CAMERA_ID,
+                            "start_time":
+                                event_start_time.strftime(
+                                    "%Y-%m-%d %H:%M:%S"
+                                ),
+                            "end_time":
+                                event_end_time.strftime(
+                                    "%Y-%m-%d %H:%M:%S"
+                                ),
+                            "region": event_region,
+                            "motion_area": int(event_area),
+                            "bbox_x": x,
+                            "bbox_y": y,
+                            "bbox_width": box_width,
+                            "bbox_height": box_height,
+                            "evidence_path":
+                                "data/evidence/"
+                                + event_id
+                                + ".jpg",
+                            "duration_seconds":
+                                f"{duration:.2f}"
+                        })
 
                     print(
                         f"EVENT ENDED | "
@@ -319,9 +472,10 @@ while True:
                     event_start_time = None
                     event_region = None
                     event_area = None
+                    event_bbox = None
                     event_evidence_path = None
 
-    # Draw the four region boundaries
+    # Draw region boundaries
     cv2.line(
         frame,
         (mid_x, 0),
@@ -338,11 +492,11 @@ while True:
         1
     )
 
-    # Save current frame for the next comparison
+    # Save current frame for next comparison
     previous_frame = gray_frame
 
     cv2.imshow(
-        "Project Sentinel - Event Evidence",
+        "Project Sentinel - Event Metadata",
         frame
     )
 
