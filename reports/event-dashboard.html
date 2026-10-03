@@ -1,0 +1,598 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Project Sentinel - Event Dashboard</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+
+            background: #f4f4f4;
+            color: #222;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        header {
+            margin-bottom: 25px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            color: #666;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(180px, 1fr)
+                );
+
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .card-title {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+
+            margin-bottom: 25px;
+
+            box-shadow:
+                0 2px 8px
+                rgba(0, 0, 0, 0.08);
+        }
+
+        .region-row {
+            display: grid;
+
+            grid-template-columns:
+                130px 1fr 50px;
+
+            gap: 10px;
+
+            align-items: center;
+
+            margin-bottom: 12px;
+        }
+
+        .region-name {
+            font-weight: bold;
+        }
+
+        .bar-background {
+            height: 18px;
+
+            background: #e5e5e5;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .bar {
+            height: 100%;
+            background: #444;
+        }
+
+        .region-count {
+            text-align: right;
+            font-weight: bold;
+        }
+
+        .highlight {
+            background: #fafafa;
+            border-left: 4px solid #444;
+
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .search {
+            width: 100%;
+
+            padding: 12px;
+
+            margin-bottom: 20px;
+
+            border:
+                1px solid #ccc;
+
+            border-radius: 6px;
+
+            font-size: 16px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+
+            border-collapse: collapse;
+
+            min-width: 850px;
+        }
+
+        th,
+        td {
+            text-align: left;
+
+            padding: 11px;
+
+            border-bottom:
+                1px solid #ddd;
+        }
+
+        th {
+            background: #f0f0f0;
+        }
+
+        code {
+            font-family:
+                Consolas,
+                "Courier New",
+                monospace;
+        }
+
+        a {
+            color: #333;
+        }
+
+        footer {
+            color: #777;
+            font-size: 14px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+
+            .region-row {
+                grid-template-columns:
+                    100px 1fr 40px;
+            }
+
+            .container {
+                padding: 20px 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <h1>Project Sentinel</h1>
+
+        <div class="subtitle">
+            Event Dashboard
+        </div>
+
+        <p>
+            Generated from
+            <code>data/events.csv</code>.
+        </p>
+
+    </header>
+
+
+    <section class="cards">
+
+        <div class="card">
+
+            <div class="card-title">
+                Total Events
+            </div>
+
+            <div class="card-value">
+                11
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Average Duration
+            </div>
+
+            <div class="card-value">
+                5.57s
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Longest Event
+            </div>
+
+            <div class="card-value">
+                25.95s
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Evidence Linked
+            </div>
+
+            <div class="card-value">
+                4
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>Events by Region</h2>
+
+        
+                <div class="region-row">
+                    <div class="region-name">
+                        BOTTOM LEFT
+                    </div>
+
+                    <div class="bar-background">
+                        <div
+                            class="bar"
+                            style="width: 100.0%"
+                        ></div>
+                    </div>
+
+                    <div class="region-count">
+                        4
+                    </div>
+                </div>
+                
+                <div class="region-row">
+                    <div class="region-name">
+                        BOTTOM RIGHT
+                    </div>
+
+                    <div class="bar-background">
+                        <div
+                            class="bar"
+                            style="width: 100.0%"
+                        ></div>
+                    </div>
+
+                    <div class="region-count">
+                        4
+                    </div>
+                </div>
+                
+                <div class="region-row">
+                    <div class="region-name">
+                        TOP LEFT
+                    </div>
+
+                    <div class="bar-background">
+                        <div
+                            class="bar"
+                            style="width: 75.0%"
+                        ></div>
+                    </div>
+
+                    <div class="region-count">
+                        3
+                    </div>
+                </div>
+                
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>Camera Summary</h2>
+
+        <p>
+            CAM-01: 11
+        </p>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>Event Details</h2>
+
+        <input
+            type="text"
+            id="searchBox"
+            class="search"
+            placeholder="Search event ID, camera, region, or time..."
+        >
+
+        <div class="table-container">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Event ID</th>
+                        <th>Camera</th>
+                        <th>Start Time</th>
+                        <th>Region</th>
+                        <th>Motion Area</th>
+                        <th>Duration</th>
+                        <th>Evidence</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="eventTable">
+
+                    
+            <tr data-search="evt-20261002-133944-382960 cam-01 bottom left 2026-10-02 13:39:44">
+                <td><code>EVT-20261002-133944-382960</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 13:39:44</td>
+                <td>BOTTOM LEFT</td>
+                <td>1817</td>
+                <td>2.86s</td>
+                <td><a href="../data/evidence/EVT-20261002-133944-382960.jpg" target="_blank">View evidence</a></td>
+            </tr>
+            
+            <tr data-search="evt-20261002-133939-358477 cam-01 bottom left 2026-10-02 13:39:39">
+                <td><code>EVT-20261002-133939-358477</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 13:39:39</td>
+                <td>BOTTOM LEFT</td>
+                <td>892</td>
+                <td>1.86s</td>
+                <td><a href="../data/evidence/EVT-20261002-133939-358477.jpg" target="_blank">View evidence</a></td>
+            </tr>
+            
+            <tr data-search="evt-20261002-132124-597336 cam-01 top left 2026-10-02 13:21:24">
+                <td><code>EVT-20261002-132124-597336</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 13:21:24</td>
+                <td>TOP LEFT</td>
+                <td>2981</td>
+                <td>2.27s</td>
+                <td><a href="../data/evidence/EVT-20261002-132124-597336.jpg" target="_blank">View evidence</a></td>
+            </tr>
+            
+            <tr data-search="evt-20261002-132119-717016 cam-01 bottom left 2026-10-02 13:21:19">
+                <td><code>EVT-20261002-132119-717016</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 13:21:19</td>
+                <td>BOTTOM LEFT</td>
+                <td>5294</td>
+                <td>3.60s</td>
+                <td><a href="../data/evidence/EVT-20261002-132119-717016.jpg" target="_blank">View evidence</a></td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125820-561691 cam-01 bottom right 2026-10-02 12:58:20">
+                <td><code>EVT-20261002-125820-561691</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:58:20</td>
+                <td>BOTTOM RIGHT</td>
+                <td>1597</td>
+                <td>7.25s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125752-352344 cam-01 bottom right 2026-10-02 12:57:52">
+                <td><code>EVT-20261002-125752-352344</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:52</td>
+                <td>BOTTOM RIGHT</td>
+                <td>1483</td>
+                <td>25.95s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125750-761175 cam-01 bottom right 2026-10-02 12:57:50">
+                <td><code>EVT-20261002-125750-761175</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:50</td>
+                <td>BOTTOM RIGHT</td>
+                <td>1036</td>
+                <td>0.99s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125749-091187 cam-01 bottom right 2026-10-02 12:57:49">
+                <td><code>EVT-20261002-125749-091187</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:49</td>
+                <td>BOTTOM RIGHT</td>
+                <td>1916</td>
+                <td>1.42s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125744-113469 cam-01 bottom left 2026-10-02 12:57:44">
+                <td><code>EVT-20261002-125744-113469</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:44</td>
+                <td>BOTTOM LEFT</td>
+                <td>2250</td>
+                <td>1.26s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125742-543374 cam-01 top left 2026-10-02 12:57:42">
+                <td><code>EVT-20261002-125742-543374</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:42</td>
+                <td>TOP LEFT</td>
+                <td>2746</td>
+                <td>1.39s</td>
+                <td>None</td>
+            </tr>
+            
+            <tr data-search="evt-20261002-125729-360518 cam-01 top left 2026-10-02 12:57:29">
+                <td><code>EVT-20261002-125729-360518</code></td>
+                <td>CAM-01</td>
+                <td>2026-10-02 12:57:29</td>
+                <td>TOP LEFT</td>
+                <td>3697</td>
+                <td>12.45s</td>
+                <td>None</td>
+            </tr>
+            
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <section class="section">
+
+        <h2>Notable Event</h2>
+
+        
+        <div class="highlight">
+            <h3>Longest Event</h3>
+
+            <p>
+                <strong>ID:</strong>
+                <code>EVT-20261002-125752-352344</code>
+            </p>
+
+            <p>
+                <strong>Camera:</strong>
+                CAM-01
+            </p>
+
+            <p>
+                <strong>Region:</strong>
+                BOTTOM RIGHT
+            </p>
+
+            <p>
+                <strong>Duration:</strong>
+                25.95s
+            </p>
+        </div>
+        
+
+    </section>
+
+
+    <footer>
+
+        Project Sentinel — local development dashboard.
+
+    </footer>
+
+</div>
+
+
+<script>
+
+    const searchBox =
+        document.getElementById("searchBox");
+
+    const rows =
+        document.querySelectorAll(
+            "#eventTable tr"
+        );
+
+    searchBox.addEventListener(
+        "input",
+        function () {
+
+            const searchTerm =
+                this.value.toLowerCase();
+
+            rows.forEach(
+                function (row) {
+
+                    const text =
+                        row.dataset.search || "";
+
+                    row.style.display =
+                        text.includes(searchTerm)
+                        ? ""
+                        : "none";
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+</body>
+
+</html>
