@@ -11,7 +11,9 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Project Sentinel - Event Dashboard</title>
+    <title>
+        Project Sentinel - Event Dashboard
+    </title>
 
     <style>
 
@@ -33,7 +35,7 @@
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1450px;
             margin: 0 auto;
             padding: 30px 20px;
         }
@@ -43,11 +45,25 @@
         }
 
         h1 {
-            margin-bottom: 5px;
+            margin:
+                0 0 5px
+                0;
+        }
+
+        h2 {
+            margin-top: 0;
+        }
+
+        h3 {
+            margin-top: 0;
         }
 
         .subtitle {
             color: #666;
+        }
+
+        .muted {
+            color: #777;
         }
 
         .cards {
@@ -60,12 +76,15 @@
                 );
 
             gap: 15px;
+
             margin-bottom: 25px;
         }
 
         .card {
             background: white;
+
             border-radius: 10px;
+
             padding: 20px;
 
             box-shadow:
@@ -75,18 +94,23 @@
 
         .card-title {
             color: #666;
+
             font-size: 14px;
+
             margin-bottom: 8px;
         }
 
         .card-value {
             font-size: 28px;
+
             font-weight: bold;
         }
 
         .section {
             background: white;
+
             border-radius: 10px;
+
             padding: 20px;
 
             margin-bottom: 25px;
@@ -94,6 +118,18 @@
             box-shadow:
                 0 2px 8px
                 rgba(0, 0, 0, 0.08);
+        }
+
+        .summary-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(260px, 1fr)
+                );
+
+            gap: 20px;
         }
 
         .region-row {
@@ -125,35 +161,233 @@
 
         .bar {
             height: 100%;
+
             background: #444;
         }
 
         .region-count {
             text-align: right;
+
             font-weight: bold;
+        }
+
+        .camera-list {
+            display: grid;
+
+            gap: 10px;
+        }
+
+        .camera-item {
+            display: flex;
+
+            justify-content: space-between;
+
+            padding:
+                10px 12px;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 6px;
+
+            background: #fafafa;
+        }
+
+        .priority-bars {
+            display: grid;
+
+            gap: 12px;
+        }
+
+        .priority-row {
+            display: grid;
+
+            grid-template-columns:
+                80px 1fr 40px;
+
+            gap: 10px;
+
+            align-items: center;
+        }
+
+        .priority-name {
+            font-weight: bold;
+        }
+
+        .priority-bar-background {
+            height: 18px;
+
+            background: #e5e5e5;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .priority-bar {
+            height: 100%;
+        }
+
+        .priority-bar.high {
+            background: #b33;
+        }
+
+        .priority-bar.medium {
+            background: #777;
+        }
+
+        .priority-bar.low {
+            background: #aaa;
+        }
+
+        .priority {
+            display: inline-block;
+
+            padding:
+                4px 8px;
+
+            border-radius: 5px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+        }
+
+        .priority.high {
+            background: #f1cccc;
+            color: #7f0000;
+        }
+
+        .priority.medium {
+            background: #e7e7e7;
+            color: #333;
+        }
+
+        .priority.low {
+            background: #f2f2f2;
+            color: #666;
         }
 
         .highlight {
             background: #fafafa;
-            border-left: 4px solid #444;
 
-            padding: 15px;
+            border-left:
+                4px solid #444;
+
+            padding: 20px;
+
             margin-top: 15px;
         }
 
-        .search {
-            width: 100%;
+        .highlight-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            gap: 15px;
+
+            margin-bottom: 15px;
+        }
+
+        .detail-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(190px, 1fr)
+                );
+
+            gap: 15px;
+        }
+
+        .detail-grid > div {
+            padding: 10px;
+
+            background: white;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 6px;
+        }
+
+        .detail-label {
+            display: block;
+
+            color: #777;
+
+            font-size: 12px;
+
+            margin-bottom: 5px;
+        }
+
+        .reason-box {
+            margin-top: 15px;
 
             padding: 12px;
 
+            background: white;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 6px;
+        }
+
+        .mini-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    auto-fit,
+                    minmax(280px, 1fr)
+                );
+
+            gap: 20px;
+        }
+
+        .mini-highlight {
+            background: #fafafa;
+
+            border:
+                1px solid #ddd;
+
+            border-radius: 8px;
+
+            padding: 18px;
+        }
+
+        .filters {
+            display: grid;
+
+            grid-template-columns:
+                2fr
+                1fr
+                1fr
+                1fr;
+
+            gap: 12px;
+
             margin-bottom: 20px;
+        }
+
+        .filter-input,
+        .filter-select {
+            width: 100%;
+
+            padding: 11px;
 
             border:
                 1px solid #ccc;
 
             border-radius: 6px;
 
-            font-size: 16px;
+            font-size: 14px;
+
+            background: white;
         }
 
         .table-container {
@@ -163,9 +397,10 @@
         table {
             width: 100%;
 
-            border-collapse: collapse;
+            border-collapse:
+                collapse;
 
-            min-width: 850px;
+            min-width: 1350px;
         }
 
         th,
@@ -176,10 +411,22 @@
 
             border-bottom:
                 1px solid #ddd;
+
+            vertical-align: top;
         }
 
         th {
             background: #f0f0f0;
+
+            position: sticky;
+
+            top: 0;
+
+            z-index: 1;
+        }
+
+        tbody tr:hover {
+            background: #fafafa;
         }
 
         code {
@@ -187,27 +434,67 @@
                 Consolas,
                 "Courier New",
                 monospace;
+
+            font-size: 12px;
         }
 
-        a {
+        .evidence-link {
             color: #333;
+
+            font-weight: bold;
+
+            text-decoration: none;
+        }
+
+        .evidence-link:hover {
+            text-decoration: underline;
+        }
+
+        .reason {
+            display: inline-block;
+
+            max-width: 320px;
+
+            color: #555;
+
+            line-height: 1.4;
+        }
+
+        .empty-row {
+            text-align: center;
+
+            color: #777;
+
+            padding: 25px;
         }
 
         footer {
             color: #777;
+
             font-size: 14px;
+
             margin-top: 25px;
+        }
+
+        @media (max-width: 900px) {
+
+            .filters {
+                grid-template-columns:
+                    1fr;
+            }
+
         }
 
         @media (max-width: 600px) {
 
+            .container {
+                padding:
+                    20px 12px;
+            }
+
             .region-row {
                 grid-template-columns:
                     100px 1fr 40px;
-            }
-
-            .container {
-                padding: 20px 12px;
             }
 
         }
@@ -216,25 +503,37 @@
 
 </head>
 
+
 <body>
 
 <div class="container">
 
     <header>
 
-        <h1>Project Sentinel</h1>
+        <h1>
+            Project Sentinel
+        </h1>
 
         <div class="subtitle">
-            Event Dashboard
+            Event Intelligence Dashboard
         </div>
 
-        <p>
+        <p class="muted">
             Generated from
             <code>data/events.csv</code>.
         </p>
 
+        <p class="muted">
+            Last generated:
+            2026-10-08 19:32:55
+        </p>
+
     </header>
 
+
+    <!-- =====================================================
+         Main summary cards
+         ===================================================== -->
 
     <section class="cards">
 
@@ -245,7 +544,7 @@
             </div>
 
             <div class="card-value">
-                11
+                23
             </div>
 
         </div>
@@ -254,11 +553,11 @@
         <div class="card">
 
             <div class="card-title">
-                Average Duration
+                Person Events
             </div>
 
             <div class="card-value">
-                5.57s
+                12
             </div>
 
         </div>
@@ -267,11 +566,24 @@
         <div class="card">
 
             <div class="card-title">
-                Longest Event
+                Multi-Person Events
             </div>
 
             <div class="card-value">
-                25.95s
+                3
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                High Priority
+            </div>
+
+            <div class="card-value">
+                14
             </div>
 
         </div>
@@ -284,7 +596,20 @@
             </div>
 
             <div class="card-value">
-                4
+                16
+            </div>
+
+        </div>
+
+
+        <div class="card">
+
+            <div class="card-title">
+                Average Duration
+            </div>
+
+            <div class="card-value">
+                13.43s
             </div>
 
         </div>
@@ -292,27 +617,111 @@
     </section>
 
 
+    <!-- =====================================================
+         Analysis summaries
+         ===================================================== -->
+
     <section class="section">
 
-        <h2>Events by Region</h2>
+        <h2>
+            Event Overview
+        </h2>
 
-        
-                <div class="region-row">
-                    <div class="region-name">
-                        BOTTOM LEFT
+        <div class="summary-grid">
+
+            <div>
+
+                <h3>
+                    Priority Distribution
+                </h3>
+
+                <div class="priority-bars">
+
+                    <div class="priority-row">
+
+                        <div class="priority-name">
+                            HIGH
+                        </div>
+
+                        <div class="priority-bar-background">
+
+                            <div
+                                class="priority-bar high"
+                                style="
+                                    width:
+                                    100.0%;
+                                "
+                            ></div>
+
+                        </div>
+
+                        <strong>
+                            14
+                        </strong>
+
                     </div>
 
-                    <div class="bar-background">
-                        <div
-                            class="bar"
-                            style="width: 100.0%"
-                        ></div>
+
+                    <div class="priority-row">
+
+                        <div class="priority-name">
+                            MEDIUM
+                        </div>
+
+                        <div class="priority-bar-background">
+
+                            <div
+                                class="priority-bar medium"
+                                style="
+                                    width:
+                                    50.0%;
+                                "
+                            ></div>
+
+                        </div>
+
+                        <strong>
+                            7
+                        </strong>
+
                     </div>
 
-                    <div class="region-count">
-                        4
+
+                    <div class="priority-row">
+
+                        <div class="priority-name">
+                            LOW
+                        </div>
+
+                        <div class="priority-bar-background">
+
+                            <div
+                                class="priority-bar low"
+                                style="
+                                    width:
+                                    14.285714285714285%;
+                                "
+                            ></div>
+
+                        </div>
+
+                        <strong>
+                            2
+                        </strong>
+
                     </div>
+
                 </div>
+
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Events by Region
+                </h3>
+
                 
                 <div class="region-row">
                     <div class="region-name">
@@ -327,7 +736,24 @@
                     </div>
 
                     <div class="region-count">
-                        4
+                        10
+                    </div>
+                </div>
+                
+                <div class="region-row">
+                    <div class="region-name">
+                        BOTTOM LEFT
+                    </div>
+
+                    <div class="bar-background">
+                        <div
+                            class="bar"
+                            style="width: 60.0%"
+                        ></div>
+                    </div>
+
+                    <div class="region-count">
+                        6
                     </div>
                 </div>
                 
@@ -339,40 +765,300 @@
                     <div class="bar-background">
                         <div
                             class="bar"
-                            style="width: 75.0%"
+                            style="width: 50.0%"
                         ></div>
                     </div>
 
                     <div class="region-count">
-                        3
+                        5
+                    </div>
+                </div>
+                
+                <div class="region-row">
+                    <div class="region-name">
+                        TOP RIGHT
+                    </div>
+
+                    <div class="bar-background">
+                        <div
+                            class="bar"
+                            style="width: 20.0%"
+                        ></div>
+                    </div>
+
+                    <div class="region-count">
+                        2
                     </div>
                 </div>
                 
 
+            </div>
+
+
+            <div>
+
+                <h3>
+                    Camera Summary
+                </h3>
+
+                <div class="camera-list">
+
+                    
+            <div class="camera-item">
+                <span>
+                    CAM-01
+                </span>
+
+                <strong>
+                    23
+                </strong>
+            </div>
+            
+
+                </div>
+
+            </div>
+
+        </div>
+
     </section>
 
 
+    <!-- =====================================================
+         Notable events
+         ===================================================== -->
+
     <section class="section">
 
-        <h2>Camera Summary</h2>
+        <h2>
+            Notable Events
+        </h2>
 
-        <p>
-            CAM-01: 11
-        </p>
+        <div class="mini-grid">
+
+            
+        <div class="highlight">
+            <div class="highlight-header">
+                <h3>Latest Event</h3>
+
+                <span class="priority high">
+                    HIGH
+                </span>
+            </div>
+
+            <div class="detail-grid">
+
+                <div>
+                    <span class="detail-label">
+                        Event ID
+                    </span>
+
+                    <code>
+                        EVT-20261008-193117-682461
+                    </code>
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Time
+                    </span>
+
+                    2026-10-08 19:31:17
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Camera
+                    </span>
+
+                    CAM-01
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Region
+                    </span>
+
+                    BOTTOM RIGHT
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Object
+                    </span>
+
+                    PERSON
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        People
+                    </span>
+
+                    1
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Confidence
+                    </span>
+
+                    0.70
+                </div>
+
+                <div>
+                    <span class="detail-label">
+                        Evidence
+                    </span>
+
+                    <a class="evidence-link" href="../data/evidence/EVT-20261008-193117-682461.jpg" target="_blank">View evidence</a>
+                </div>
+
+            </div>
+
+            <div class="reason-box">
+                <strong>Priority reason:</strong>
+                Large motion area
+            </div>
+        </div>
+        
+
+            
+        <div class="mini-highlight">
+            <h3>Longest Event</h3>
+
+            <p>
+                <strong>ID:</strong>
+                <code>EVT-20261006-200523-391320</code>
+            </p>
+
+            <p>
+                <strong>Duration:</strong>
+                1m 1.01s
+            </p>
+
+            <p>
+                <strong>Priority:</strong>
+
+                <span class="priority high">
+                    HIGH
+                </span>
+            </p>
+
+            <p>
+                <strong>Reason:</strong>
+                Large motion area + long duration
+            </p>
+        </div>
+        
+
+            
+        <div class="mini-highlight">
+            <h3>Latest High Priority Event</h3>
+
+            <p>
+                <strong>ID:</strong>
+                <code>EVT-20261008-193117-682461</code>
+            </p>
+
+            <p>
+                <strong>Time:</strong>
+                2026-10-08 19:31:17
+            </p>
+
+            <p>
+                <strong>Reason:</strong>
+                Large motion area
+            </p>
+        </div>
+        
+
+        </div>
 
     </section>
 
 
+    <!-- =====================================================
+         Event table
+         ===================================================== -->
+
     <section class="section">
 
-        <h2>Event Details</h2>
+        <h2>
+            Event History
+        </h2>
 
-        <input
-            type="text"
-            id="searchBox"
-            class="search"
-            placeholder="Search event ID, camera, region, or time..."
-        >
+        <div class="filters">
+
+            <input
+                type="text"
+                id="searchBox"
+                class="filter-input"
+                placeholder="
+                    Search event ID, camera, region,
+                    object, priority, or reason...
+                "
+            >
+
+            <select
+                id="priorityFilter"
+                class="filter-select"
+            >
+
+                <option value="">
+                    All priorities
+                </option>
+
+                <option value="HIGH">
+                    HIGH
+                </option>
+
+                <option value="MEDIUM">
+                    MEDIUM
+                </option>
+
+                <option value="LOW">
+                    LOW
+                </option>
+
+            </select>
+
+
+            <select
+                id="objectFilter"
+                class="filter-select"
+            >
+
+                <option value="">
+                    All objects
+                </option>
+
+                <option value="PERSON">
+                    PERSON
+                </option>
+
+                <option value="UNKNOWN">
+                    UNKNOWN
+                </option>
+
+            </select>
+
+
+            <select
+                id="regionFilter"
+                class="filter-select"
+            >
+
+                <option value="">
+                    All regions
+                </option>
+
+                <option value="TOP LEFT">TOP LEFT</option><option value="BOTTOM LEFT">BOTTOM LEFT</option><option value="BOTTOM RIGHT">BOTTOM RIGHT</option><option value="TOP RIGHT">TOP RIGHT</option>
+
+            </select>
+
+        </div>
+
 
         <div class="table-container">
 
@@ -381,128 +1067,1487 @@
                 <thead>
 
                     <tr>
-                        <th>Event ID</th>
-                        <th>Camera</th>
-                        <th>Start Time</th>
-                        <th>Region</th>
-                        <th>Motion Area</th>
-                        <th>Duration</th>
-                        <th>Evidence</th>
+
+                        <th>
+                            Event ID
+                        </th>
+
+                        <th>
+                            Camera
+                        </th>
+
+                        <th>
+                            Start Time
+                        </th>
+
+                        <th>
+                            Region
+                        </th>
+
+                        <th>
+                            Object
+                        </th>
+
+                        <th>
+                            Count
+                        </th>
+
+                        <th>
+                            Confidence
+                        </th>
+
+                        <th>
+                            Priority
+                        </th>
+
+                        <th>
+                            Motion Area
+                        </th>
+
+                        <th>
+                            Duration
+                        </th>
+
+                        <th>
+                            Evidence
+                        </th>
+
+                        <th>
+                            Priority Reason
+                        </th>
+
                     </tr>
 
                 </thead>
 
+
                 <tbody id="eventTable">
 
                     
-            <tr data-search="evt-20261002-133944-382960 cam-01 bottom left 2026-10-02 13:39:44">
-                <td><code>EVT-20261002-133944-382960</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 13:39:44</td>
-                <td>BOTTOM LEFT</td>
-                <td>1817</td>
-                <td>2.86s</td>
-                <td><a href="../data/evidence/EVT-20261002-133944-382960.jpg" target="_blank">View evidence</a></td>
+            <tr
+                data-search="evt-20261008-193117-682461 cam-01 bottom right person 2026-10-08 19:31:17 high large motion area"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261008-193117-682461</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-08 19:31:17
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.70
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    18384
+                </td>
+
+                <td>
+                    3.86s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261008-193117-682461.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area"
+                    >
+                        Large motion area
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-133939-358477 cam-01 bottom left 2026-10-02 13:39:39">
-                <td><code>EVT-20261002-133939-358477</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 13:39:39</td>
-                <td>BOTTOM LEFT</td>
-                <td>892</td>
-                <td>1.86s</td>
-                <td><a href="../data/evidence/EVT-20261002-133939-358477.jpg" target="_blank">View evidence</a></td>
+            <tr
+                data-search="evt-20261008-193056-182324 cam-01 top left person 2026-10-08 19:30:56 high long duration"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="TOP LEFT"
+            >
+                <td>
+                    <code>EVT-20261008-193056-182324</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-08 19:30:56
+                </td>
+
+                <td>
+                    TOP LEFT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.94
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    562
+                </td>
+
+                <td>
+                    19.91s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261008-193056-182324.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Long duration"
+                    >
+                        Long duration
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-132124-597336 cam-01 top left 2026-10-02 13:21:24">
-                <td><code>EVT-20261002-132124-597336</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 13:21:24</td>
-                <td>TOP LEFT</td>
-                <td>2981</td>
-                <td>2.27s</td>
-                <td><a href="../data/evidence/EVT-20261002-132124-597336.jpg" target="_blank">View evidence</a></td>
+            <tr
+                data-search="evt-20261008-193042-356084 cam-01 top left person 2026-10-08 19:30:42 high large motion area + long duration"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="TOP LEFT"
+            >
+                <td>
+                    <code>EVT-20261008-193042-356084</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-08 19:30:42
+                </td>
+
+                <td>
+                    TOP LEFT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.88
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    5296
+                </td>
+
+                <td>
+                    11.59s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261008-193042-356084.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration"
+                    >
+                        Large motion area + long duration
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-132119-717016 cam-01 bottom left 2026-10-02 13:21:19">
-                <td><code>EVT-20261002-132119-717016</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 13:21:19</td>
-                <td>BOTTOM LEFT</td>
-                <td>5294</td>
-                <td>3.60s</td>
-                <td><a href="../data/evidence/EVT-20261002-132119-717016.jpg" target="_blank">View evidence</a></td>
+            <tr
+                data-search="evt-20261006-200523-391320 cam-01 bottom right person 2026-10-06 20:05:23 high large motion area + long duration"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261006-200523-391320</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-06 20:05:23
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.95
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    12745
+                </td>
+
+                <td>
+                    1m 1.01s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261006-200523-391320.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration"
+                    >
+                        Large motion area + long duration
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125820-561691 cam-01 bottom right 2026-10-02 12:58:20">
-                <td><code>EVT-20261002-125820-561691</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:58:20</td>
-                <td>BOTTOM RIGHT</td>
-                <td>1597</td>
-                <td>7.25s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261006-200358-046021 cam-01 bottom left person 2026-10-06 20:03:58 high large motion area + long duration"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261006-200358-046021</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-06 20:03:58
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.91
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    5215
+                </td>
+
+                <td>
+                    45.23s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261006-200358-046021.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration"
+                    >
+                        Large motion area + long duration
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125752-352344 cam-01 bottom right 2026-10-02 12:57:52">
-                <td><code>EVT-20261002-125752-352344</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:52</td>
-                <td>BOTTOM RIGHT</td>
-                <td>1483</td>
-                <td>25.95s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261006-194506-753311 cam-01 top right person 2026-10-06 19:45:06 high large motion area + long duration"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="TOP RIGHT"
+            >
+                <td>
+                    <code>EVT-20261006-194506-753311</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-06 19:45:06
+                </td>
+
+                <td>
+                    TOP RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.94
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    40674
+                </td>
+
+                <td>
+                    23.33s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261006-194506-753311.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration"
+                    >
+                        Large motion area + long duration
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125750-761175 cam-01 bottom right 2026-10-02 12:57:50">
-                <td><code>EVT-20261002-125750-761175</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:50</td>
-                <td>BOTTOM RIGHT</td>
-                <td>1036</td>
-                <td>0.99s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261005-234139-428717 cam-01 bottom right person 2026-10-05 23:41:39 high large motion area + long duration; multi-person detected (2 people, confidence 0.93), already high"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261005-234139-428717</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 23:41:39
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    2
+                </td>
+
+                <td>
+                    0.93
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    11506
+                </td>
+
+                <td>
+                    41.70s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-234139-428717.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration; multi-person detected (2 people, confidence 0.93), already HIGH"
+                    >
+                        Large motion area + long duration; multi-person detected (2 people, confidence 0.93), already HIGH
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125749-091187 cam-01 bottom right 2026-10-02 12:57:49">
-                <td><code>EVT-20261002-125749-091187</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:49</td>
-                <td>BOTTOM RIGHT</td>
-                <td>1916</td>
-                <td>1.42s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261005-231949-684287 cam-01 bottom right person 2026-10-05 23:19:49 high long duration; multi-person detected (2 people, confidence 0.92), already high"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261005-231949-684287</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 23:19:49
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    2
+                </td>
+
+                <td>
+                    0.92
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    1806
+                </td>
+
+                <td>
+                    23.79s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-231949-684287.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Long duration; multi-person detected (2 people, confidence 0.92), already HIGH"
+                    >
+                        Long duration; multi-person detected (2 people, confidence 0.92), already HIGH
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125744-113469 cam-01 bottom left 2026-10-02 12:57:44">
-                <td><code>EVT-20261002-125744-113469</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:44</td>
-                <td>BOTTOM LEFT</td>
-                <td>2250</td>
-                <td>1.26s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261005-231943-239564 cam-01 bottom right person 2026-10-05 23:19:43 high large motion area; multi-person detected (2 people, confidence 0.93), already high"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261005-231943-239564</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 23:19:43
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    2
+                </td>
+
+                <td>
+                    0.93
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    204174
+                </td>
+
+                <td>
+                    5.77s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-231943-239564.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area; multi-person detected (2 people, confidence 0.93), already HIGH"
+                    >
+                        Large motion area; multi-person detected (2 people, confidence 0.93), already HIGH
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125742-543374 cam-01 top left 2026-10-02 12:57:42">
-                <td><code>EVT-20261002-125742-543374</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:42</td>
-                <td>TOP LEFT</td>
-                <td>2746</td>
-                <td>1.39s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261005-225319-535203 cam-01 bottom left person 2026-10-05 22:53:19 high large motion area"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261005-225319-535203</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 22:53:19
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.84
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    8498
+                </td>
+
+                <td>
+                    6.14s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-225319-535203.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area"
+                    >
+                        Large motion area
+                    </span>
+                </td>
             </tr>
             
-            <tr data-search="evt-20261002-125729-360518 cam-01 top left 2026-10-02 12:57:29">
-                <td><code>EVT-20261002-125729-360518</code></td>
-                <td>CAM-01</td>
-                <td>2026-10-02 12:57:29</td>
-                <td>TOP LEFT</td>
-                <td>3697</td>
-                <td>12.45s</td>
-                <td>None</td>
+            <tr
+                data-search="evt-20261005-225315-367216 cam-01 top right person 2026-10-05 22:53:15 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="PERSON"
+                data-region="TOP RIGHT"
+            >
+                <td>
+                    <code>EVT-20261005-225315-367216</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 22:53:15
+                </td>
+
+                <td>
+                    TOP RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.70
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    1699
+                </td>
+
+                <td>
+                    2.52s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-225315-367216.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261005-225312-231726 cam-01 bottom right person 2026-10-05 22:53:12 high large motion area"
+                data-priority="HIGH"
+                data-object="PERSON"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261005-225312-231726</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-05 22:53:12
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    PERSON
+                </td>
+
+                <td>
+                    1
+                </td>
+
+                <td>
+                    0.80
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    3445
+                </td>
+
+                <td>
+                    2.78s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261005-225312-231726.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area"
+                    >
+                        Large motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-133944-382960 cam-01 bottom left unknown 2026-10-02 13:39:44 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-133944-382960</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 13:39:44
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    1817
+                </td>
+
+                <td>
+                    2.86s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261002-133944-382960.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-133939-358477 cam-01 bottom left unknown 2026-10-02 13:39:39 low small/short event"
+                data-priority="LOW"
+                data-object="UNKNOWN"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-133939-358477</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 13:39:39
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority low">
+                        LOW
+                    </span>
+                </td>
+
+                <td>
+                    892
+                </td>
+
+                <td>
+                    1.86s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261002-133939-358477.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Small/short event"
+                    >
+                        Small/short event
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-132124-597336 cam-01 top left unknown 2026-10-02 13:21:24 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="TOP LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-132124-597336</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 13:21:24
+                </td>
+
+                <td>
+                    TOP LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    2981
+                </td>
+
+                <td>
+                    2.27s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261002-132124-597336.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-132119-717016 cam-01 bottom left unknown 2026-10-02 13:21:19 high large motion area"
+                data-priority="HIGH"
+                data-object="UNKNOWN"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-132119-717016</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 13:21:19
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    5294
+                </td>
+
+                <td>
+                    3.60s
+                </td>
+
+                <td>
+                    <a class="evidence-link" href="../data/evidence/EVT-20261002-132119-717016.jpg" target="_blank">View evidence</a>
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area"
+                    >
+                        Large motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125820-561691 cam-01 bottom right unknown 2026-10-02 12:58:20 medium moderate motion area + moderate duration"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261002-125820-561691</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:58:20
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    1597
+                </td>
+
+                <td>
+                    7.25s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area + moderate duration"
+                    >
+                        Moderate motion area + moderate duration
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125752-352344 cam-01 bottom right unknown 2026-10-02 12:57:52 high long duration"
+                data-priority="HIGH"
+                data-object="UNKNOWN"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261002-125752-352344</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:52
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    1483
+                </td>
+
+                <td>
+                    25.95s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Long duration"
+                    >
+                        Long duration
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125750-761175 cam-01 bottom right unknown 2026-10-02 12:57:50 low small/short event"
+                data-priority="LOW"
+                data-object="UNKNOWN"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261002-125750-761175</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:50
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority low">
+                        LOW
+                    </span>
+                </td>
+
+                <td>
+                    1036
+                </td>
+
+                <td>
+                    0.99s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Small/short event"
+                    >
+                        Small/short event
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125749-091187 cam-01 bottom right unknown 2026-10-02 12:57:49 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="BOTTOM RIGHT"
+            >
+                <td>
+                    <code>EVT-20261002-125749-091187</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:49
+                </td>
+
+                <td>
+                    BOTTOM RIGHT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    1916
+                </td>
+
+                <td>
+                    1.42s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125744-113469 cam-01 bottom left unknown 2026-10-02 12:57:44 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="BOTTOM LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-125744-113469</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:44
+                </td>
+
+                <td>
+                    BOTTOM LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    2250
+                </td>
+
+                <td>
+                    1.26s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125742-543374 cam-01 top left unknown 2026-10-02 12:57:42 medium moderate motion area"
+                data-priority="MEDIUM"
+                data-object="UNKNOWN"
+                data-region="TOP LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-125742-543374</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:42
+                </td>
+
+                <td>
+                    TOP LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority medium">
+                        MEDIUM
+                    </span>
+                </td>
+
+                <td>
+                    2746
+                </td>
+
+                <td>
+                    1.39s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Moderate motion area"
+                    >
+                        Moderate motion area
+                    </span>
+                </td>
+            </tr>
+            
+            <tr
+                data-search="evt-20261002-125729-360518 cam-01 top left unknown 2026-10-02 12:57:29 high large motion area + long duration"
+                data-priority="HIGH"
+                data-object="UNKNOWN"
+                data-region="TOP LEFT"
+            >
+                <td>
+                    <code>EVT-20261002-125729-360518</code>
+                </td>
+
+                <td>
+                    CAM-01
+                </td>
+
+                <td>
+                    2026-10-02 12:57:29
+                </td>
+
+                <td>
+                    TOP LEFT
+                </td>
+
+                <td>
+                    UNKNOWN
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    -
+                </td>
+
+                <td>
+                    <span class="priority high">
+                        HIGH
+                    </span>
+                </td>
+
+                <td>
+                    3697
+                </td>
+
+                <td>
+                    12.45s
+                </td>
+
+                <td>
+                    None
+                </td>
+
+                <td>
+                    <span
+                        class="reason"
+                        title="Large motion area + long duration"
+                    >
+                        Large motion area + long duration
+                    </span>
+                </td>
             </tr>
             
 
@@ -515,43 +2560,50 @@
     </section>
 
 
+    <!-- =====================================================
+         Notes
+         ===================================================== -->
+
     <section class="section">
 
-        <h2>Notable Event</h2>
+        <h2>
+            Dashboard Notes
+        </h2>
 
-        
-        <div class="highlight">
-            <h3>Longest Event</h3>
+        <p>
+            This dashboard reads the stored event history
+            generated by Project Sentinel.
+        </p>
 
-            <p>
-                <strong>ID:</strong>
-                <code>EVT-20261002-125752-352344</code>
-            </p>
+        <p>
+            Priority values are calculated using the same
+            rule-based priority engine used by
+            <code>src/event_priority.py</code>.
+        </p>
 
-            <p>
-                <strong>Camera:</strong>
-                CAM-01
-            </p>
+        <p>
+            Historical events created before person detection
+            was added may show <strong>UNKNOWN</strong> for
+            object information.
+        </p>
 
-            <p>
-                <strong>Region:</strong>
-                BOTTOM RIGHT
-            </p>
+        <p>
+            Evidence links point to locally stored images
+            under <code>data/evidence/</code>.
+        </p>
 
-            <p>
-                <strong>Duration:</strong>
-                25.95s
-            </p>
-        </div>
-        
+        <p>
+            The dashboard is a local development interface.
+            It does not claim that a HIGH priority event
+            represents an intruder, crime, or dangerous
+            activity.
+        </p>
 
     </section>
 
 
     <footer>
-
-        Project Sentinel — local development dashboard.
-
+        Project Sentinel - local event intelligence dashboard.
     </footer>
 
 </div>
@@ -560,38 +2612,140 @@
 <script>
 
     const searchBox =
-        document.getElementById("searchBox");
+        document.getElementById(
+            "searchBox"
+        );
+
+
+    const priorityFilter =
+        document.getElementById(
+            "priorityFilter"
+        );
+
+
+    const objectFilter =
+        document.getElementById(
+            "objectFilter"
+        );
+
+
+    const regionFilter =
+        document.getElementById(
+            "regionFilter"
+        );
+
 
     const rows =
         document.querySelectorAll(
             "#eventTable tr"
         );
 
+
+    function applyFilters() {
+
+        const searchTerm =
+            searchBox.value
+                .toLowerCase()
+                .trim();
+
+
+        const selectedPriority =
+            priorityFilter.value;
+
+
+        const selectedObject =
+            objectFilter.value;
+
+
+        const selectedRegion =
+            regionFilter.value;
+
+
+        rows.forEach(
+            function(row) {
+
+                const text =
+                    row.dataset.search || "";
+
+
+                const priority =
+                    row.dataset.priority || "";
+
+
+                const objectType =
+                    row.dataset.object || "";
+
+
+                const region =
+                    row.dataset.region || "";
+
+
+                const matchesSearch =
+                    text.includes(
+                        searchTerm
+                    );
+
+
+                const matchesPriority =
+                    !selectedPriority
+                    ||
+                    priority === selectedPriority;
+
+
+                const matchesObject =
+                    !selectedObject
+                    ||
+                    objectType === selectedObject;
+
+
+                const matchesRegion =
+                    !selectedRegion
+                    ||
+                    region === selectedRegion;
+
+
+                row.style.display =
+                    matchesSearch
+                    &&
+                    matchesPriority
+                    &&
+                    matchesObject
+                    &&
+                    matchesRegion
+                    ? ""
+                    : "none";
+
+            }
+        );
+
+    }
+
+
     searchBox.addEventListener(
         "input",
-        function () {
+        applyFilters
+    );
 
-            const searchTerm =
-                this.value.toLowerCase();
 
-            rows.forEach(
-                function (row) {
+    priorityFilter.addEventListener(
+        "change",
+        applyFilters
+    );
 
-                    const text =
-                        row.dataset.search || "";
 
-                    row.style.display =
-                        text.includes(searchTerm)
-                        ? ""
-                        : "none";
+    objectFilter.addEventListener(
+        "change",
+        applyFilters
+    );
 
-                }
-            );
 
-        }
+    regionFilter.addEventListener(
+        "change",
+        applyFilters
     );
 
 </script>
+
 
 </body>
 
