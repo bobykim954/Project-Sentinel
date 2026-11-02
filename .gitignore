@@ -1,8 +1,17 @@
-﻿.venv/
+﻿# Python virtual environment
+.venv/
+
+# Python cache files
 __pycache__/
 *.py[cod]
+
+# Editor settings
 .vscode/
+
+# Environment variables and secrets
 .env
+
+# Raw CCTV data
 data/raw/
 
 # Generated CCTV evidence
@@ -10,3 +19,6 @@ data/evidence/
 
 # Generated dashboard output
 reports/event-dashboard.html
+
+# Runtime event history
+data/events.csv
